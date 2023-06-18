@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 1512967}
   - component: {fileID: 1512965}
   - component: {fileID: 1512966}
+  - component: {fileID: 1512968}
   m_Layer: 0
   m_Name: Eagle Camera
   m_TagString: Untagged
@@ -199,7 +200,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512964}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!4 &1512967
 Transform:
   m_ObjectHideFlags: 0
@@ -215,6 +216,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1512968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db4c546a28a288449b2ec9d756f41c59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ARCamera: {fileID: 81516097}
 --- !u!1 &81516091
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,6 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ARCamera: {fileID: 81516097}
   EagleCamera: {fileID: 1512965}
+  ARMode: 1
 --- !u!4 &483415431
 Transform:
   m_ObjectHideFlags: 0

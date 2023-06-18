@@ -7,11 +7,14 @@ public class CameraConstroller : MonoBehaviour
     [SerializeField]
     private Camera ARCamera;
     [SerializeField]
-    private Camera EagleCamera;
+    private EagleCameraController EagleCamera;
+    [SerializeField]
+    public bool ARMode;
     // Start is called before the first frame update
     void Start()
     {
-
+        ARCamera.enabled = ARMode;
+        EagleCamera.enabled = !ARMode;
     }
 
     // Update is called once per frame
@@ -20,10 +23,14 @@ public class CameraConstroller : MonoBehaviour
         
     }
 
-    void SwitchCamera()
+    void SwitchCamera(bool isAREnabled) {
+        ARMode = isAREnabled;
+        ARCamera.enabled = ARMode;
+        EagleCamera.camera.enabled = !ARMode;
+    }
+
+    public void SwitchCamera()
     {
-        bool isAREnabled = ARCamera.enabled;
-        ARCamera.enabled = !isAREnabled;
-        EagleCamera.enabled = isAREnabled;
+        SwitchCamera(!ARMode);
     }
 }
