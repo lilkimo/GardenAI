@@ -10,18 +10,13 @@ public class CameraConstroller : MonoBehaviour
     private EagleCameraController EagleCamera;
     [SerializeField]
     public bool ARMode;
-    // Start is called before the first frame update
+    
     void Start()
     {
         ARCamera.enabled = ARMode;
         EagleCamera.enabled = !ARMode;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Update() {}
 
     void SwitchCamera(bool isAREnabled) {
         ARMode = isAREnabled;
