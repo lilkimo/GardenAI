@@ -10,16 +10,20 @@ public class CameraConstroller : MonoBehaviour
     private EagleCameraController EagleCamera;
     [SerializeField]
     public bool ARMode;
+    [SerializeField]
+    public GameObject VirtualGarden;
     
     void Start()
     {
-        ARCamera.enabled = ARMode;
-        EagleCamera.enabled = !ARMode;
+        SwitchCamera(ARMode);
     }
     void Update() {}
 
     void SwitchCamera(bool isAREnabled) {
         ARMode = isAREnabled;
+
+        VirtualGarden.SetActive(!ARMode);
+
         ARCamera.enabled = ARMode;
         EagleCamera.camera.enabled = !ARMode;
     }
