@@ -123,50 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &65866681
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 65866682}
-  - component: {fileID: 65866683}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &65866682
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 65866681}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.4297333, y: 4.1932893, z: 11.610053}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &65866683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 65866681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b5895112d38e74428dd9c1a13d827d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &99936671
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,13 +147,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99936671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.618166, y: -4.604843, z: 4.2705994}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1769630464}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &155456905
 GameObject:
@@ -244,7 +200,7 @@ Transform:
   m_Children:
   - {fileID: 1067690405}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &200879143
 GameObject:
@@ -259,7 +215,7 @@ GameObject:
   - component: {fileID: 200879145}
   - component: {fileID: 200879144}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -342,7 +298,7 @@ RectTransform:
   m_Children:
   - {fileID: 1590574315}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -359,8 +315,9 @@ GameObject:
   m_Component:
   - component: {fileID: 483415431}
   - component: {fileID: 483415430}
+  - component: {fileID: 483415432}
   m_Layer: 0
-  m_Name: Camera Constroller
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -378,10 +335,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6825ac7a6fae7bd49b1dbc91b082fb95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ARCamera: {fileID: 4090898818881928005}
-  EagleCamera: {fileID: 3572028665270677407}
-  ARMode: 0
-  VirtualGarden: {fileID: 99936671}
+  aRMode: 0
+  aRCamera: {fileID: 4090898818881928005}
+  eagleCamera: {fileID: 6931239216256706359}
+  virtualGarden: {fileID: 99936671}
 --- !u!4 &483415431
 Transform:
   m_ObjectHideFlags: 0
@@ -395,8 +352,21 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &483415432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483415429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e719da9b2c9959c489e06750d574340d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aRPlacePlant: {fileID: 6580886291115212625}
 --- !u!1 &598072489
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,19 +609,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RaycastPrefab: {fileID: 0}
---- !u!114 &744460535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6580886291115212624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 252c42eebb0d57f4991afdcbd3a34b6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planta: {fileID: 7184120899639820770, guid: faab2192c084cec4b8b2623d4f9649af, type: 3}
 --- !u!850595691 &826020328
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -927,7 +884,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1668940410
 MonoBehaviour:
@@ -1069,7 +1026,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1769630460}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.618166, y: 1.8448431, z: -4.2705994}
+  m_LocalPosition: {x: 0, y: -0.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1506,7 +1463,7 @@ GameObject:
   - component: {fileID: 5796866278960727169}
   - component: {fileID: 3632755245551325484}
   - component: {fileID: 744460534}
-  - component: {fileID: 744460535}
+  - component: {fileID: 6580886291115212625}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -1514,6 +1471,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6580886291115212625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6580886291115212624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 252c42eebb0d57f4991afdcbd3a34b6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plant: {fileID: 7184120899639820770, guid: faab2192c084cec4b8b2623d4f9649af, type: 3}
 --- !u!1 &6672308126474732643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,7 +1536,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
