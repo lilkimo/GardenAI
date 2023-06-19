@@ -9,6 +9,11 @@ public class PlaceController : MonoBehaviour
 {   
     [SerializeField]
     private ARPlacePlant aRPlacePlant;
+    [SerializeField]
+    private EaglePlacePlant eaglePlacePlant;
+    
+    [SerializeField]
+    private GameObject plant;
 
     private CameraController cameraController;
 
@@ -24,8 +29,8 @@ public class PlaceController : MonoBehaviour
     public void PlacePlant(EnhancedTouch.Finger finger)
     {
         if (cameraController.aRMode)
-            aRPlacePlant.PlacePlant(finger);
+            aRPlacePlant.PlacePlant(finger, plant);
         else
-            Debug.Log("Eagle PlacePlant call");
+            eaglePlacePlant.PlacePlant(finger, plant);
     }
 }

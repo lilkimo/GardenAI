@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -14,16 +15,13 @@ public class ARPlacePlant : MonoBehaviour
     private ARPlaneManager aRPlaneManager;
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-    [SerializeField]
-    private GameObject plant;
-
     private void Awake()
     {
         aRRaycastManager = GetComponent<ARRaycastManager>();
         aRPlaneManager = GetComponent<ARPlaneManager>();
     }
 
-    public void PlacePlant(EnhancedTouch.Finger finger)
+    public void PlacePlant(EnhancedTouch.Finger finger, GameObject plant)
     {
         Debug.Log("AR PlacePlant call");
         if(finger.index != 0)
