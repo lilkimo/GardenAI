@@ -15,15 +15,14 @@ public class EaglePlacePlant : MonoBehaviour
         camera = GetComponent<Camera>();
     }
 
-    public void PlacePlant(EnhancedTouch.Finger finger, GameObject plant)
+    public Pose? PlacePlant(EnhancedTouch.Finger finger)
     {
         Debug.Log("Eagle PlacePlant call");
-        if(finger.index != 0)
-            return;
-        Ray ray = camera.ScreenPointToRay(finger.currentTouch.screenPosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, 50f))
-        {
-            GameObject obj = Instantiate(plant, hit.point, Quaternion.Euler(Vector3.zero));
+        if(finger.index == 0) {
+            Ray ray = camera.ScreenPointToRay(finger.currentTouch.screenPosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 50f))
+                return new Pose(hit.point, Quaternion.Euler(Vector3.zero));
         }
+        return null;
     }
 }

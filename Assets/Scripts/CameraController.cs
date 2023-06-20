@@ -5,14 +5,14 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    public bool aRMode;
-    
-    [SerializeField]
     private Camera aRCamera;
     [SerializeField]
     private Camera eagleCamera;
     [SerializeField]
-    private GameObject virtualGarden;
+    public bool aRMode;
+    
+    [SerializeField]
+    public VirtualGardenManager virtualGarden;
     
     void Start()
     {
@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
     {
         aRMode = isAREnabled;
 
-        virtualGarden.SetActive(!aRMode);
+        virtualGarden.terrain.SetActive(!aRMode);
 
         aRCamera.enabled = aRMode;
         eagleCamera.enabled = !aRMode;

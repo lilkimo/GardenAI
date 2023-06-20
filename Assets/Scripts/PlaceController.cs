@@ -28,9 +28,17 @@ public class PlaceController : MonoBehaviour
 
     public void PlacePlant(EnhancedTouch.Finger finger)
     {
+        Pose? plantPose;
         if (cameraController.aRMode)
-            aRPlacePlant.PlacePlant(finger, plant);
+            plantPose = aRPlacePlant.PlacePlant(finger);
         else
-            eaglePlacePlant.PlacePlant(finger, plant);
+            plantPose = eaglePlacePlant.PlacePlant(finger);
+        if (plantPose != null)
+        {
+            // Esta variable está para que el compilador no webé, ya que como plantPose puede ser nulo, toda
+            // esta weá explota (Aunque la condición de arriba evita hacer cualquier weá si plantPose == null)
+            Pose _plantPose = plantPose.GetValueOrDefault();
+            GameObject obj = Instantiate(plant, _plantPose.position, _plantPose.rotation, cameraController.virtualGarden.transform);
+        }
     }
 }

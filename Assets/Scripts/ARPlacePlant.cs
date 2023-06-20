@@ -21,18 +21,12 @@ public class ARPlacePlant : MonoBehaviour
         aRPlaneManager = GetComponent<ARPlaneManager>();
     }
 
-    public void PlacePlant(EnhancedTouch.Finger finger, GameObject plant)
+    public Pose? PlacePlant(EnhancedTouch.Finger finger)
     {
         Debug.Log("AR PlacePlant call");
-        if(finger.index != 0)
-            return;
-        if(aRRaycastManager.Raycast(finger.currentTouch.screenPosition, hits, TrackableType.Planes))
-        {
-            foreach (ARRaycastHit hit in hits)
-            {
-                Pose pose = hit.pose;
-                GameObject obj = Instantiate(plant, pose.position, pose.rotation);
-            }
-        }
+        if(finger.index == 0)
+            if(aRRaycastManager.Raycast(finger.currentTouch.screenPosition, hits, TrackableType.Planes))
+                return hits[0].pose;
+        return null;
     }
 }
