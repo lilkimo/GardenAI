@@ -33,12 +33,8 @@ public class PlaceController : MonoBehaviour
             plantPose = aRPlacePlant.PlacePlant(finger);
         else
             plantPose = eaglePlacePlant.PlacePlant(finger);
-        if (plantPose != null)
-        {
-            // Esta variable está para que el compilador no webé, ya que como plantPose puede ser nulo, toda
-            // esta weá explota (Aunque la condición de arriba evita hacer cualquier weá si plantPose == null)
-            Pose _plantPose = plantPose.GetValueOrDefault();
-            GameObject obj = Instantiate(plant, _plantPose.position, _plantPose.rotation, cameraController.virtualGarden.transform);
-        }
+        
+        if (plantPose.HasValue)
+            Instantiate(plant, plantPose.Value.position, plantPose.Value.rotation, cameraController.virtualGarden.transform);
     }
 }
