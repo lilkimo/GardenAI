@@ -1138,7 +1138,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2629728.5, y: 1968076.2}
+  m_AnchoredPosition: {x: -2651352, y: 1983940}
   m_SizeDelta: {x: 0, y: 440}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &803090642
@@ -1573,6 +1573,7 @@ MonoBehaviour:
     type: 3}
   menuManager: {fileID: 483415433}
   placeController: {fileID: 483415432}
+  isSelected: 
 --- !u!4 &1146376300
 Transform:
   m_ObjectHideFlags: 0
@@ -2250,7 +2251,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054380102}
-  m_LocalRotation: {x: 0, y: 0.71242344, z: 0, w: 0.7017499}
+  m_LocalRotation: {x: 0, y: 0.8294629, z: 0, w: 0.55856186}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
