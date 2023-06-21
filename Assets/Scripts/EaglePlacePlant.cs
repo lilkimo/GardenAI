@@ -40,4 +40,23 @@ public class EaglePlacePlant : MonoBehaviour
         }
         return null;
     }
+
+    public Vector2 GetPlantScreenPosition(Transform plant)
+    {
+        return camera.WorldToScreenPoint(plant.position);
+    }
+
+    public void MoveCamera(Vector2 movement)
+    {
+        movement /= 4;
+        Transform offset = camera.transform.parent;
+        Vector3 rotation = offset.localRotation.eulerAngles;
+
+        if (rotation.x > 180)
+            rotation.x -= 360;
+        rotation.x = Mathf.Clamp(rotation.x + movement.y, -45, 0);
+        rotation.y = rotation.y + movement.x;
+        
+        offset.localRotation = Quaternion.Euler(rotation);
+    }
 }

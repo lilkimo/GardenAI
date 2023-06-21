@@ -27,7 +27,7 @@ public class ARPlacePlant : MonoBehaviour
     {
         Debug.Log("AR PlacePlant call");
         if(finger.index == 0)
-            if(aRRaycastManager.Raycast(finger.currentTouch.screenPosition, hits, TrackableType.Planes))
+            if(aRRaycastManager.Raycast(finger.screenPosition, hits, TrackableType.Planes))
                 return hits[0].pose;
         return null;
     }
@@ -45,5 +45,10 @@ public class ARPlacePlant : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public Vector2 GetPlantScreenPosition(Transform plant)
+    {
+        return aRCamera.WorldToScreenPoint(plant.position);
     }
 }
