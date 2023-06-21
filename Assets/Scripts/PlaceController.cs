@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 using System;
@@ -58,7 +59,7 @@ public class PlaceController : MonoBehaviour
         plant = desiredPlant;
     }
 
-    private Transform selectedPlant = null;
+    private SelectedObject? selectedPlant = null;
     private bool isTap;
     public void SelectPlant(EnhancedTouch.Finger finger)
     {
@@ -68,7 +69,8 @@ public class PlaceController : MonoBehaviour
             selectedPlant = aRPlacePlant.GetPlant(finger);
         else
             selectedPlant = eaglePlacePlant.GetPlant(finger);
-        if (selectedPlant != null)
+
+        if (selectedPlant.HasValue)
             Debug.Log($"Selected plant: {selectedPlant}");
     }
 
@@ -76,11 +78,13 @@ public class PlaceController : MonoBehaviour
 
     public void DeselectOrDeletePlant(EnhancedTouch.Finger _)
     {
-        if (selectedPlant != null)
+        sameTouch = 0;
+        
+        if (selectedPlant.HasValue)
         {
             Debug.Log($"Deselected plant: {selectedPlant}");
             if (isTap)
-                Destroy(selectedPlant.gameObject);
+                Destroy(selectedPlant.Value.Object);
         }
 
         selectedPlant = null;
@@ -100,7 +104,7 @@ public class PlaceController : MonoBehaviour
 
     private void onFingerMove(EnhancedTouch.Finger finger)
     {
-        if (selectedPlant == null)
+        if (!selectedPlant.HasValue)
         {
             if (!cameraController.aRMode)
                 eaglePlacePlant.MoveCamera(finger.screenPosition - finger.touchHistory[1].screenPosition);
@@ -109,24 +113,32 @@ public class PlaceController : MonoBehaviour
             ScaleRotatePlant(finger);
     }
 
+    int sameTouch = 0;
     private void ScaleRotatePlant(EnhancedTouch.Finger finger)
     {
-        if (selectedPlant == null)
+        sameTouch = Math.Clamp(sameTouch + 1, 0, 64);
+        if (!selectedPlant.HasValue)
             return;
+
+        Vector2 deltaScreenPosition = finger.screenPosition - finger.touchHistory[new int[] {finger.touchHistory.Count, sameTouch, 3}.Min()].screenPosition;
         
-        Vector2 plantScreenPosition;
-        if (cameraController.aRMode)
-            plantScreenPosition = aRPlacePlant.GetPlantScreenPosition(selectedPlant);
-        else
-            plantScreenPosition = eaglePlacePlant.GetPlantScreenPosition(selectedPlant);
-        Vector2 relativePosition = finger.screenPosition - plantScreenPosition;
-        float angle = Mathf.Abs(Mathf.Atan2(relativePosition.y, relativePosition.x) * Mathf.Rad2Deg);
+        // Vector2 plantScreenPosition;
+        // if (cameraController.aRMode)
+        //     plantScreenPosition = aRPlacePlant.GetPlantScreenPosition(selectedPlant.Value);
+        // else
+        //     plantScreenPosition = eaglePlacePlant.GetPlantScreenPosition(selectedPlant.Value);
+        // Vector2 relativePosition = finger.screenPosition - plantScreenPosition;
+        // float angle = Mathf.Abs(Mathf.Atan2(relativePosition.y, relativePosition.x) * Mathf.Rad2Deg);
+        // if (angle > 90)
+        //     angle = 180 - angle;
+        // Debug.Log($"{angle} {finger.screenPosition} {plantScreenPosition}");
+        
+        float angle = Mathf.Abs(Mathf.Atan2(deltaScreenPosition.y, deltaScreenPosition.x) * Mathf.Rad2Deg);
         if (angle > 90)
             angle = 180 - angle;
         
-        // En el futuro, cuando la escala si dependa de la escala original de la planta,
-        // hay que reemplazar deltaScreenPosition por relativePosition
-        Vector2 deltaScreenPosition = finger.screenPosition - finger.touchHistory[1].screenPosition;
+        //Debug.Log($"{angle} {deltaScreenPosition}");
+        
         if (angle <= 10)
             RotatePlant(deltaScreenPosition.x);
         else if (angle >= 80)
@@ -135,10 +147,8 @@ public class PlaceController : MonoBehaviour
 
     private void ScalePlant(float magnitude)
     {
-        //Vector2 deltaScreenPosition = finger.screenPosition - finger.touchHistory[1].screenPosition;
         // Aquí vvvv vamos a tener que dividir deltaScreenPosition por un múltiplo de la pantalla para
         // que en todos los dispositivos funcione igual.
-        //Vector3 deltaVector = Vector3.one*Mathf.Clamp(deltaScreenPosition.y/100, -1, 1);
         Vector3 deltaVector = Vector3.one*Mathf.Clamp(magnitude/100, -1, 1);
         
         // Si la selectedPlant no parte con escala (1, 1, 1) esta weá va a explotar a la mierda.
@@ -147,15 +157,19 @@ public class PlaceController : MonoBehaviour
         // y seguramente clampear el resultado por valores más chicos como +-.1f. Y luego hacer la pedazo
         // de condición corte (selectedPlant.localScale + deltaVector).x <= originalScale.x &&
         // (selectedPlant.localScale + deltaVector).y <= originalScale.y && ...
-        if ((selectedPlant.localScale + deltaVector).x <= 4 && (selectedPlant.localScale + deltaVector).x >= 1)
-            selectedPlant.localScale += deltaVector;
+        Vector3 newScale = selectedPlant.Value.Object.transform.localScale + deltaVector;
+        for (int i = 0; i < 3; i++)
+            newScale[i] = Mathf.Clamp(newScale[i], 1, 4);
+
+        selectedPlant.Value.Object.transform.localScale = newScale;
     }
 
 
     private void RotatePlant(float magnitude)
     {
+        Debug.Log("Rotate");
         // Aquí vvvv vamos a tener que dividir <magnitude> por un múltiplo de la pantalla para
         // que en todos los dispositivos funcione igual.
-        selectedPlant.localRotation = Quaternion.Euler(selectedPlant.localRotation.eulerAngles + new Vector3(0, magnitude/2, 0));
+        selectedPlant.Value.Object.transform.localRotation = Quaternion.Euler(selectedPlant.Value.Object.transform.localRotation.eulerAngles + new Vector3(0, magnitude/2, 0));
     }
 }

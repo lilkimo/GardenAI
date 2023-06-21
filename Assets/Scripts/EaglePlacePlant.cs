@@ -26,7 +26,7 @@ public class EaglePlacePlant : MonoBehaviour
         return null;
     }
 
-    public Transform GetPlant(EnhancedTouch.Finger finger)
+    public SelectedObject? GetPlant(EnhancedTouch.Finger finger)
     {
         if(finger.index == 0)
         {
@@ -35,15 +35,15 @@ public class EaglePlacePlant : MonoBehaviour
             {
                 Transform obj = hit.transform;
                 if (obj.CompareTag("Plant"))
-                    return obj;
+                    return new SelectedObject(obj, hit.point);
             }
         }
         return null;
     }
 
-    public Vector2 GetPlantScreenPosition(Transform plant)
+    public Vector2 GetPlantScreenPosition(SelectedObject plant)
     {
-        return camera.WorldToScreenPoint(plant.position);
+        return camera.WorldToScreenPoint(plant.HitPoint);
     }
 
     public void MoveCamera(Vector2 movement)
