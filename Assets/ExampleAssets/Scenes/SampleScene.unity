@@ -644,7 +644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aRCamera: {fileID: 4090898818881928005}
   eagleCamera: {fileID: 6931239216256706359}
-  aRMode: 1
+  aRMode: 0
   virtualGarden: {fileID: 99936673}
 --- !u!4 &483415431
 Transform:
@@ -675,7 +675,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aRPlacePlant: {fileID: 6580886291115212625}
   eaglePlacePlant: {fileID: 3572028665270677407}
-  plant: {fileID: 7184120899639820770, guid: faab2192c084cec4b8b2623d4f9649af, type: 3}
 --- !u!114 &483415433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,7 +684,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 483415429}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 368413212ece188489aaa12991a381e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 8804b85c6c59a56438061a8f77ab0ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &529018509
@@ -1132,7 +1131,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -78618.4, y: 61267.133}
+  m_AnchoredPosition: {x: -697800.9, y: 551333.6}
   m_SizeDelta: {x: 0, y: 440}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &803090642
@@ -1564,7 +1563,8 @@ MonoBehaviour:
   buttonContainer: {fileID: 803090640}
   itemButtonManager: {fileID: 7312142440667565442, guid: 86235496a1b6cb049a8653d64cac8520,
     type: 3}
-  Instance: {fileID: 483415433}
+  menuManager: {fileID: 483415433}
+  placeController: {fileID: 483415432}
 --- !u!4 &1146376300
 Transform:
   m_ObjectHideFlags: 0
