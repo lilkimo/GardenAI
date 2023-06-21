@@ -13,6 +13,8 @@ public class ARPlacePlant : MonoBehaviour
 {
     private ARRaycastManager aRRaycastManager;
     private ARPlaneManager aRPlaneManager;
+    [SerializeField]
+    private Camera aRCamera;
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
     private void Awake()
@@ -27,6 +29,21 @@ public class ARPlacePlant : MonoBehaviour
         if(finger.index == 0)
             if(aRRaycastManager.Raycast(finger.currentTouch.screenPosition, hits, TrackableType.Planes))
                 return hits[0].pose;
+        return null;
+    }
+
+    public Transform GetPlant(EnhancedTouch.Finger finger)
+    {
+        if(finger.index == 0)
+        {
+            Ray ray = aRCamera.ScreenPointToRay(finger.screenPosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 50f))
+            {
+                Transform obj = hit.transform;
+                if (obj.CompareTag("Plant"))
+                    return obj;
+            }
+        }
         return null;
     }
 }
