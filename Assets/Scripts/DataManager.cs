@@ -17,6 +17,8 @@ public class DataManager : MonoBehaviour
     [SerializeField]
     private PlaceController placeController;
 
+    public string isSelected;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +39,11 @@ public class DataManager : MonoBehaviour
         {
             ItemButtonManager itemButton = Instantiate(itemButtonManager, buttonContainer.transform);
             itemButton.Init(item.ItemName, item.ItemDescription, item.ItemImage);
-            itemButton.button.onClick.AddListener( () => placeController.SetPlant(item.Item3DModel) );
+            itemButton.button.onClick.AddListener( () => {
+                placeController.SetPlant(item.Item3DModel);
+                isSelected = item.ItemName;
+                itemButton.changeColor();
+            });
         }
         menuManager.OnPlantas -= CreateButtons;
     }

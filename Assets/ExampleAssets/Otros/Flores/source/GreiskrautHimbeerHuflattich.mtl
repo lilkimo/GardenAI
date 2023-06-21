@@ -1,0 +1,41 @@
+# Blender MTL File: 'None'
+# Material Count: 3
+
+newmtl Greiskrautblaetter
+Ns 43.137255
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.585000 0.585000 0.585000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd D:\3D Games\Warrior Cats\3d\Heilpflanzen\Greiskrautblätter\Greistkrautblaetter_diff.png
+map_Ka D:\\3D Games\\Warrior Cats\\3d\\Heilpflanzen\\Greiskrautblätter\\Greistkrautblaetter_diff.png
+map_d D:\\3D Games\\Warrior Cats\\3d\\Heilpflanzen\\Greiskrautblätter\\Greistkrautblaetter_op.png
+
+newmtl Himbeere
+Ns 43.137255
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.585000 0.585000 0.585000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd D:\3D Games\Warrior Cats\3d\Heilpflanzen\Himbeerblätter\Himbeere_diff.png
+map_Ka D:\\3D Games\\Warrior Cats\\3d\\Heilpflanzen\\Himbeerblätter\\Himbeere_diff.png
+map_d D:\\3D Games\\Warrior Cats\\3d\\Heilpflanzen\\Himbeerblätter\\Himbeere_op.png
+
+newmtl Huflattich
+Ns 43.137255
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.585000 0.585000 0.585000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd D:\3D Games\Warrior Cats\3d\Heilpflanzen\Huflattich\Huflattich_diff.png
+map_Ka D:\\3D Games\\Warrior Cats\\3d\\Heilpflanzen\\Huflattich\\Huflattich_diff.png
+map_d D:\\3D Games\\Warrior Cats\\3d\\Heilpflanzen\\Huflattich\\Huflattich_op.png
