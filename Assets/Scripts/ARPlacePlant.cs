@@ -32,7 +32,7 @@ public class ARPlacePlant : MonoBehaviour
         return null;
     }
 
-    public Transform GetPlant(EnhancedTouch.Finger finger)
+    public SelectedObject? GetPlant(EnhancedTouch.Finger finger)
     {
         if(finger.index == 0)
         {
@@ -41,14 +41,14 @@ public class ARPlacePlant : MonoBehaviour
             {
                 Transform obj = hit.transform;
                 if (obj.CompareTag("Plant"))
-                    return obj;
+                    return new SelectedObject(obj, hit.point);
             }
         }
         return null;
     }
 
-    public Vector2 GetPlantScreenPosition(Transform plant)
+    public Vector2 GetPlantScreenPosition(SelectedObject plant)
     {
-        return aRCamera.WorldToScreenPoint(plant.position);
+        return aRCamera.WorldToScreenPoint(plant.HitPoint);
     }
 }
