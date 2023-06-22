@@ -38,7 +38,7 @@ public class DataManager : MonoBehaviour
         foreach (var item in items)
         {
             ItemButtonManager itemButton = Instantiate(itemButtonManager, buttonContainer.transform);
-            itemButton.Init(item.ItemName, item.ItemDescription, item.ItemImage);
+            itemButton.Init(item.ItemName, item.Consumption.ToString(), item.ItemImage);
             itemButton.button.onClick.AddListener( () => {
                 placeController.SetPlant(item.Item3DModel, item.Consumption);
                 isSelected = item.ItemName;

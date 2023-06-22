@@ -9,13 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78c25ce079e39f54ab092be3222d7deb, type: 3}
-  m_Name: Clavelina
+  m_Script: {fileID: 11500000, guid: f5e726c0e161ba741a9771f56ba96107, type: 3}
+  m_Name: Clavelina 1
   m_EditorClassIdentifier: 
-  nombre: Clavelina
-  description: "La clavelina es una planta ornamental de flores delicadas y fragantes,
+  ItemName: Clavelina
+  ItemImage: {fileID: 21300000, guid: f2da2cb517cd84a498039d05c98bac76, type: 3}
+  ItemDescription: "La clavelina es una planta ornamental de flores delicadas y fragantes,
     que se destacan por su colorido y su aspecto elegante. Sus peque\xF1as flores
     en forma de campana brindan encanto y alegr\xEDa a cualquier espacio."
-  edad: 7 meses
-  "tama\xF1o": 30
-  consumo: 100 ml/dia
+  Item3DModel: {fileID: 7741003530775684430, guid: ad477edbedd939d46a092441607d041f,
+    type: 3}
+  Age: 7 meses
+  Size: 30
+  Consumption: 100

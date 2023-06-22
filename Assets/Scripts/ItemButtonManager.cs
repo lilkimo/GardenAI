@@ -20,11 +20,11 @@ public class ItemButtonManager : MonoBehaviour
         dataManager = DM.GetComponent<DataManager>();
     }
 
-    public void Init(string name, string description, Sprite image)
+    public void Init(string name, string consumption, Sprite image)
     {
         transform.GetChild(0).GetComponent<Text>().text = name;
         transform.GetChild(1).GetComponent<RawImage>().texture = image.texture;
-        transform.GetChild(2).GetComponent<Text>().text = description;
+        transform.GetChild(2).GetComponent<Text>().text = $"Consumo [ml/d]: {consumption}";
     }
 
     void Update(){
