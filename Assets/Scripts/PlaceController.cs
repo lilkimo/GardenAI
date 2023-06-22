@@ -14,8 +14,11 @@ public class PlaceController : MonoBehaviour
     private ARPlacePlant aRPlacePlant;
     [SerializeField]
     private EaglePlacePlant eaglePlacePlant;
+    [SerializeField]
+    private VirtualGardenManager vGM;
     
     private GameObject plant;
+    private int consumption;
 
     private CameraController cameraController;
 
@@ -53,10 +56,11 @@ public class PlaceController : MonoBehaviour
         // EnhancedTouch.Touch += ScalePlant;
     }
 
-    public void SetPlant(GameObject desiredPlant)
+    public void SetPlant(GameObject desiredPlant, int cons)
     {
         Debug.Log($"Planta cambiada a {desiredPlant}");
         plant = desiredPlant;
+        consumption = cons;
     }
 
     private SelectedObject? selectedPlant = null;
@@ -85,6 +89,7 @@ public class PlaceController : MonoBehaviour
             Debug.Log($"Deselected plant: {selectedPlant}");
             if (isTap)
                 Destroy(selectedPlant.Value.Object);
+                vGM.removePlant(1);
         }
 
         selectedPlant = null;
@@ -100,6 +105,7 @@ public class PlaceController : MonoBehaviour
         
         if (plantPose.HasValue)
             Instantiate(plant, plantPose.Value.position, plantPose.Value.rotation, cameraController.virtualGarden.transform);
+            vGM.addPlant(consumption);
     }
 
     private void onFingerMove(EnhancedTouch.Finger finger)

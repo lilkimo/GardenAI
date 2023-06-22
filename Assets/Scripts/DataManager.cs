@@ -34,13 +34,13 @@ public class DataManager : MonoBehaviour
         // Habría que hacer que automáticamente se seleccione la primera planta de la lista.
         // (Es más fácil que programar qué pasaría si quieres poner una planta pero no has
         // ninguna seleccionada)
-        placeController.SetPlant(items[0].Item3DModel);
+        placeController.SetPlant(items[0].Item3DModel, items[0].Consumption);
         foreach (var item in items)
         {
             ItemButtonManager itemButton = Instantiate(itemButtonManager, buttonContainer.transform);
             itemButton.Init(item.ItemName, item.ItemDescription, item.ItemImage);
             itemButton.button.onClick.AddListener( () => {
-                placeController.SetPlant(item.Item3DModel);
+                placeController.SetPlant(item.Item3DModel, item.Consumption);
                 isSelected = item.ItemName;
                 itemButton.changeColor();
             });

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78c25ce079e39f54ab092be3222d7deb, type: 3}
+  m_Name: Orquidea
+  m_EditorClassIdentifier: 
+  nombre: Orquidea
+  description: "Una planta delicada con flores ex\xF3ticas y colores vibrantes, que
+    cautiva con su belleza y fragancia \xFAnica. Requiere cuidados especiales para
+    florecer en su m\xE1ximo esplendor."
+  edad: 9 meses
+  "tama\xF1o": 30
+  consumo: 50 a 100 ml/dia

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78c25ce079e39f54ab092be3222d7deb, type: 3}
+  m_Name: Clavelina
+  m_EditorClassIdentifier: 
+  nombre: Clavelina
+  description: "La clavelina es una planta ornamental de flores delicadas y fragantes,
+    que se destacan por su colorido y su aspecto elegante. Sus peque\xF1as flores
+    en forma de campana brindan encanto y alegr\xEDa a cualquier espacio."
+  edad: 7 meses
+  "tama\xF1o": 30
+  consumo: 100 ml/dia

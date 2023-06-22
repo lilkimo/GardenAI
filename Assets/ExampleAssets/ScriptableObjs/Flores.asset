@@ -17,3 +17,6 @@ MonoBehaviour:
   ItemDescription: Flores
   Item3DModel: {fileID: 1671240783058480904, guid: 45df06fa6690ecf4f89f8b4a61cc6c0b,
     type: 3}
+  Age: 1
+  Size: 1
+  Consumption: 20
