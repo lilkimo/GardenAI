@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] public MenuManager Instance;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (Instance == null){
