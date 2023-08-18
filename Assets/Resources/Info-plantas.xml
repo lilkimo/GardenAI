@@ -1,0 +1,72 @@
+<info-plantas>
+    <planta>
+        <nombre>Ficus Benjamina</nombre>
+        <descripcion></descripcion>
+        <ubicacion>No es necesario que le llegue luz constante. Es espacioso, considerar 10[cm] de ancho y unos 20[m] de alto, si se planta afuera.</ubicacion>
+        <costo>15000</costo>
+        <consumo>200</consumo>
+        <densidad>Alta</densidad>
+        <mantencion>No</mantencion>
+        <resistencia>Alta</resistencia>
+    </planta>
+    <planta>
+        <nombre>Toronjil</nombre>
+        <descripcion></descripcion>
+        <ubicacion>Ubicar en la semisombra. Considerar 30[cm] de altura</ubicacion>
+        <costo>3000</costo>
+        <consumo>200</consumo>
+        <densidad>Baja</densidad>
+        <mantencion>Si</mantencion>
+        <resistencia>Media</resistencia>
+    </planta>
+    <planta>
+        <nombre>Espinillo</nombre>
+        <descripcion></descripcion>
+        <ubicacion>Crece hasta 5[m] y unos 1.5[m] de ancho. Requiere constante sol.</ubicacion>
+        <costo>5000</costo>
+        <consumo>10</consumo>
+        <densidad>Alta</densidad>
+        <mantencion>No</mantencion>
+        <resistencia>Alta</resistencia>
+    </planta>
+    <planta>
+        <nombre>Amapola de California</nombre>
+        <descripcion></descripcion>
+        <ubicacion>Lugar seco. Necesita mucho sol.</ubicacion>
+        <costo>3150</costo>
+        <consumo>50</consumo>
+        <densidad>Baja</densidad>
+        <mantencion>No</mantencion>
+        <resistencia>Media</resistencia>
+    </planta>
+    <planta>
+        <nombre>Arbol de jade</nombre>
+        <descripcion></descripcion>
+        <ubicacion>Llega hasta los 2 metros de alto. Necesita sol directo y tierra con buen drenaje.</ubicacion>
+        <costo>3000</costo>
+        <consumo>200</consumo>
+        <densidad>Media</densidad>
+        <mantencion>No</mantencion>
+        <resistencia>Alta</resistencia>
+    </planta>
+    <planta>
+        <nombre>Ceriman</nombre>
+        <descripcion></descripcion>
+        <ubicacion>Hojas y tallos grandes, necesita unos 3 metros cuadrados. No dejar en sol directo</ubicacion>
+        <costo>20000</costo>
+        <consumo>200</consumo>
+        <densidad>Alta</densidad>
+        <mantencion>No</mantencion>
+        <resistencia>Alta</resistencia>
+    </planta>
+    <planta>
+        <nombre>Calendula</nombre>
+        <descripcion></descripcion>
+        <ubicacion>Tiene 40[cm] de alto y ancho. Necestia alta exposición al sol.</ubicacion>
+        <costo>3000</costo>
+        <consumo>100</consumo>
+        <densidad>Baja</densidad>
+        <mantencion>No</mantencion>
+        <resistencia>Media</resistencia>
+    </planta>
+</info-plantas>

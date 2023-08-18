@@ -1,8 +1,9 @@
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BannedItemManager : MonoBehaviour
+public class BannableItemManager : MonoBehaviour
 {
     private string nombrePlanta;
     private string descripcionPlanta;
@@ -17,12 +18,5 @@ public class BannedItemManager : MonoBehaviour
         transform.GetChild(0).GetComponent<Image>().sprite =  imagenPlanta;
         transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = nombrePlanta;
         transform.GetChild(2).GetComponent<TextMeshProUGUI>().text =  descripcionPlanta;
-
-        var botton = transform.GetChild(0).GetComponent<Button>();
-        botton.onClick.AddListener(UnbanPlant);
-    }
-
-    private void UnbanPlant(){
-        //Habilitar planta de lista negra y deshabilitar en la blanca
     }
 }
