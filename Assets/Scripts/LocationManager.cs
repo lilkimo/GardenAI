@@ -2,23 +2,45 @@ using UnityEngine;
 using System.Collections;
 using System;
 using UnityEngine.Networking;
-using UnityEditor;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Collections.Generic;
 
 public class LocationManager : MonoBehaviour
 {
     private string API_KEY = "AIzaSyD7AGKsaPiLxIHUV0BMea5zgAFJHW58TuU";
-    public string direccion;
+    private string userRegion;
+    public string UserRegion {get => userRegion;}
+    private List<string> locationData;
+    public List<string> LocationData{
+        get => locationData;
+        set => locationData = value;
+    }
+
     [Serializable]
     public class Response 
     {
         public Plus_Code plus_code;
-        public string results;
+        public Address[] results;
     }
     [Serializable]
     public class Plus_Code
     {
         public string compound_code;
         public string global_code;
+    }
+    public class Address
+    {
+        public Add_comp[] address_components;
+        public string formatted_adress;
+        public string[] geometry;
+        public string place_id;
+        public string[] types;
+    }
+    public class Add_comp
+    {
+        public string long_name;
+        public string short_name;
+        public string[] types;
     }
 
     IEnumerator Start()
@@ -78,14 +100,26 @@ public class LocationManager : MonoBehaviour
                 
                     string json = request.downloadHandler.text;
                     Response response = JsonUtility.FromJson<Response>(json);
-                    var data = response.plus_code.compound_code;
-                    direccion = data;
+                    var data = response.results[0].address_components[5].long_name;
+                    userRegion = data;
+                    LocationData = ParseLocation(userRegion);
             }
 
         }
 
         // Stops the location service if there is no need to query location updates continuously.
         Input.location.Stop();
+    }
+
+    public List<string> ParseLocation(string ubicacion){
+        List<string> locationData;
+        // Ahora debería revisar una archivo con los datios de las distintas regionaes para poder obetner sus suelos y temperaturas.
+        // Pero mientras tanto...
+        if(ubicacion == "Región Metropolitana"){
+            locationData = new List<string>(){"Region Metropolitana", "Templaldo", "Vertisol"};
+            return locationData;
+        }
+        else return null;
     }
 
 }

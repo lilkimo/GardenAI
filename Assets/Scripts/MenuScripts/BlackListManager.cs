@@ -13,11 +13,13 @@ public class BlackListManager : MonoBehaviour
         {
             if (child.GetComponent<Toggle>().isOn) {
 
+                Debug.Log("Planta baneada: "+ child);
+
                 child.GetComponent<Toggle>().isOn = false;
 
                 GameObject baneado = Instantiate(child.gameObject, blackList.transform);
                 baneado.transform.SetParent(blackList.transform, false);
-
+                
                 child.gameObject.SetActive(false);
             }
         }

@@ -8,6 +8,10 @@
         <densidad>Alta</densidad>
         <mantencion>No</mantencion>
         <resistencia>Alta</resistencia>
+        <origen>Región Metropolitana</origen>
+        <temperatura></temperatura>
+        <suelo></suelo>
+        <conflictos>Espinillo</conflictos>
     </planta>
     <planta>
         <nombre>Toronjil</nombre>
@@ -18,6 +22,10 @@
         <densidad>Baja</densidad>
         <mantencion>Si</mantencion>
         <resistencia>Media</resistencia>
+        <origen>Región Metropolitana</origen>
+        <temperatura></temperatura>
+        <suelo></suelo>
+        <conflictos>Espinillo, Ceriman</conflictos>
     </planta>
     <planta>
         <nombre>Espinillo</nombre>
@@ -28,6 +36,10 @@
         <densidad>Alta</densidad>
         <mantencion>No</mantencion>
         <resistencia>Alta</resistencia>
+        <origen>Ñuble</origen>
+        <temperatura></temperatura>
+        <suelo></suelo>
+        <conflictos>Ficus Benjamina, Toronjil</conflictos>
     </planta>
     <planta>
         <nombre>Amapola de California</nombre>
@@ -38,6 +50,10 @@
         <densidad>Baja</densidad>
         <mantencion>No</mantencion>
         <resistencia>Media</resistencia>
+        <origen>Región Metropolitana</origen>
+        <temperatura></temperatura>
+        <suelo></suelo>
+        <conflictos></conflictos>
     </planta>
     <planta>
         <nombre>Arbol de jade</nombre>
@@ -48,6 +64,10 @@
         <densidad>Media</densidad>
         <mantencion>No</mantencion>
         <resistencia>Alta</resistencia>
+        <origen>Ñuble</origen>
+        <temperatura></temperatura>
+        <suelo></suelo>
+        <conflictos></conflictos>
     </planta>
     <planta>
         <nombre>Ceriman</nombre>
@@ -58,6 +78,10 @@
         <densidad>Alta</densidad>
         <mantencion>No</mantencion>
         <resistencia>Alta</resistencia>
+        <origen>Antofagasta</origen>
+        <temperatura></temperatura>
+        <suelo></suelo>
+        <conflictos>Toronjil</conflictos>
     </planta>
     <planta>
         <nombre>Calendula</nombre>
@@ -68,5 +92,9 @@
         <densidad>Baja</densidad>
         <mantencion>No</mantencion>
         <resistencia>Media</resistencia>
+        <origen>Ñuble</origen>
+        <temperatura></temperatura>
+        <suelo></suelo>
+        <conflictos></conflictos>
     </planta>
 </info-plantas>

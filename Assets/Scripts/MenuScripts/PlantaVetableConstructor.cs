@@ -1,9 +1,10 @@
-
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BannableItemManager : MonoBehaviour
+public class PlantaVetableConstructor : MonoBehaviour
 {
     private string nombrePlanta;
     private string descripcionPlanta;
@@ -15,8 +16,8 @@ public class BannableItemManager : MonoBehaviour
 
     void Start()
     {
-        transform.GetChild(0).GetComponent<Image>().sprite =  imagenPlanta;
-        transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = nombrePlanta;
+        transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = nombrePlanta;
+        // transform.GetChild(1).GetComponent<Image>().sprite =  imagenPlanta;
         transform.GetChild(2).GetComponent<TextMeshProUGUI>().text =  descripcionPlanta;
     }
 }

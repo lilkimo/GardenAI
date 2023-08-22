@@ -1,11 +1,7 @@
 using UnityEngine;
-using System.Collections;
 using System.IO;
 using System.Xml;
-using UnityEngine.UI;
-using Unity.VisualScripting;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 public class OldParseXML : MonoBehaviour{
 

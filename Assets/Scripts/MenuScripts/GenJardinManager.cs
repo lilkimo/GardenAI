@@ -4,22 +4,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
-using System.Threading;
 
 public class GenJardinManager : MonoBehaviour
 {
+    // Valores de la localización del usuario
+
+    // Criterios definidos por el usuario:
     [SerializeField] private GameObject costo;
     [SerializeField] private GameObject consumo;
     [SerializeField] private GameObject densidad;
     [SerializeField] private GameObject mantencion;
     [SerializeField] private GameObject flujo;
     [SerializeField] private GameObject blacklist;
+    [SerializeField] private GameObject whitelist;
+    [SerializeField] private PlantaVetableConstructor plantaVetableConstructor;
 
+    // Data de todas las plantas:
     [SerializeField] private OldParseXML parseXml;
 
+    // Constructor de tarjetas de plantas para jardín generado y el contenedor de estas:
     [SerializeField] private PlantaJardinConstructor plantaJardinConstructor;
     [SerializeField] private GameObject VistaPlantasJardin;
 
+    // void GenerarJardin():
+    // La función recupera todos los criterios ingresados por el usuario y 
+    // luego ejecuta la función que genera el listado de plantas a colocar.
     public void GenerarJardin(){
         int tamañoJardin = 200; //En m^2
 
@@ -47,6 +56,7 @@ public class GenJardinManager : MonoBehaviour
         }
     }
     
+    // Devuelve el toggle encendido dentro de un grupo.
     Toggle GetSelectedToggle(GameObject parent) {
         Toggle[] toggles = parent.GetComponentsInChildren<Toggle>();
         foreach (var t in toggles)
@@ -54,6 +64,7 @@ public class GenJardinManager : MonoBehaviour
         return null;           // if nothing is selected return null
     }
 
+    // Devuelve los nombres de todas las platnas betadas manualmente por el usuario.
     List<string> GetAllBlacklist(GameObject container){
         List<string> nombres = new List<string>();
         foreach(Transform child in container.transform){
@@ -62,6 +73,14 @@ public class GenJardinManager : MonoBehaviour
         return nombres;
     }
     
+    // Dictionary<string, List<string>> PickPlants():
+    // La función selecciona plantas en un bucle limitado por 2 cantidades: el saldo del costo del jardín y 
+    // el saldo del consumo de agua del jardín. Debido a que aún está en etapa inicial, por ahora recomienda 
+    // plantas aleatorias que cumplan con los criterios del usuario y los de la ubicación:
+    // - Temperatura y tipo de suelo son condiciones booleanas
+    // - Conflicto interespecie agrega una advertencia por ahora. Más adelante determianra un radio que las 
+    //   plantas conflictivas no podrán sobreponer.
+    // - Flora local aumenta el peso de la planta para la selección aleatoria.
     public Dictionary<string, List<string>> PickPlants(float costoMax, float consumoMax, string densidad, bool mantencion, string flujo, List<string> banned){
 
         Debug.Log("PickPlants en proceso...");
@@ -109,16 +128,36 @@ public class GenJardinManager : MonoBehaviour
         }
         return plantasJardin;
     }
-    
     bool IsDensityApropiate(string plantaValue, string condition){
         if (condition == "Baja" && (plantaValue == "Media" || plantaValue == "Alta")) return false;
         else if (condition == "Media" && plantaValue == "Alta") return false;
         else return true;
     }
-
     bool IsFlowApropiate(string plantaValue, string condition){
         if (condition == "Alta" && (plantaValue == "Media" || plantaValue == "Baja")) return false;
         else if (condition == "Media" && plantaValue == "Baja") return false;
         else return true;
+    }
+
+
+    public void ListWLPlants(){
+        foreach (var planta in parseXml.infoPlantas)
+        {
+            PlantaVetableConstructor cons;
+            cons = Instantiate(plantaVetableConstructor, whitelist.transform);
+            cons.NombrePlanta = planta.Key;
+            cons.DescripcionPlanta = planta.Value[0];
+            // cons.ImagenPlanta = planta.Value[n];
+        }
+    }
+    public void DeleteWLPlants(){
+        foreach(Transform child in whitelist.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach(Transform child in blacklist.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }
