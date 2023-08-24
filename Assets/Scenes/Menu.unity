@@ -661,6 +661,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whiteList: {fileID: 1509115860}
   blackList: {fileID: 1066807600}
+  constructor: {fileID: 7394577307125353242, guid: 13510f7bc67e17544817cb4bb7cec98e,
+    type: 3}
 --- !u!1 &96127139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,9 +1118,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 140949724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf11cf4a14dcec944a9c0930ff7d1ffd, type: 3}
+  m_Script: {fileID: 11500000, guid: ea45b0389084f334c92e561a249ce396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  locationManager: {fileID: 263456559}
   costo: {fileID: 1722522962}
   consumo: {fileID: 1385249528}
   densidad: {fileID: 2038179792}
@@ -1128,7 +1131,14 @@ MonoBehaviour:
   whitelist: {fileID: 1509115860}
   plantaVetableConstructor: {fileID: 7394577307125353242, guid: 13510f7bc67e17544817cb4bb7cec98e,
     type: 3}
-  parseXml: {fileID: 2061756241}
+  allPlants:
+  - {fileID: 11400000, guid: b350f036073545640a7d7331abff8d7a, type: 2}
+  - {fileID: 11400000, guid: bf26ed24b7f08a94eaf3600ee0448d68, type: 2}
+  - {fileID: 11400000, guid: 4e1818e021ad8994ab58c5e2179f51f2, type: 2}
+  - {fileID: 11400000, guid: 2461718c156ef5d4dbe0c757d21255cf, type: 2}
+  - {fileID: 11400000, guid: 8d933b15970ff4941baf178ed344e62b, type: 2}
+  - {fileID: 11400000, guid: 6ba547693d3b5924c8e7ad6e7515a113, type: 2}
+  - {fileID: 11400000, guid: c33852896b5b3c844bea8c314e56ee2d, type: 2}
   plantaJardinConstructor: {fileID: 8317011432163190925, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
     type: 3}
   VistaPlantasJardin: {fileID: 1833118621}
@@ -1645,7 +1655,6 @@ GameObject:
   m_Component:
   - component: {fileID: 263456558}
   - component: {fileID: 263456559}
-  - component: {fileID: 263456560}
   m_Layer: 0
   m_Name: LocationManager
   m_TagString: Untagged
@@ -1680,19 +1689,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b6751f62908f654197e967babee5757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &263456560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 263456556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 692131c4c7818354eb9b2b1888ed968f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  locationManager: {fileID: 0}
 --- !u!1 &296415523
 GameObject:
   m_ObjectHideFlags: 0
@@ -3493,19 +3489,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 526990896}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 140949726}
-        m_TargetAssemblyTypeName: GenJardinManager, Assembly-CSharp
-        m_MethodName: GenerarJardin
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &526990896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6855,7 +6839,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 140949726}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GenJardinManager, Assembly-CSharp
         m_MethodName: ListWLPlants
         m_Mode: 1
@@ -7083,7 +7067,7 @@ PrefabInstance:
     - target: {fileID: 6307458551559038039, guid: 1b529464b4159bd40a9c2a8c5b5e86b9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: GenJardinManager, Assembly-CSharp
+      value: SOGenJardinManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6307458551559038039, guid: 1b529464b4159bd40a9c2a8c5b5e86b9,
         type: 3}
@@ -8981,7 +8965,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 140949726}
-        m_TargetAssemblyTypeName: GenJardinManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: SOGenJardinManager, Assembly-CSharp
         m_MethodName: GenerarJardin
         m_Mode: 1
         m_Arguments:
@@ -10982,15 +10966,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 40}
   m_LocalScale: {x: 1, y: 1.9125, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8413618603513323094}
+  m_Children: []
   m_Father: {fileID: 1309343274}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -680.5753}
-  m_SizeDelta: {x: 0, y: 91.1888}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1833118623
 MonoBehaviour:
@@ -13123,133 +13106,4 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9107196886616786242, guid: 1b529464b4159bd40a9c2a8c5b5e86b9,
     type: 3}
   m_PrefabInstance: {fileID: 1741778633615522415}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &8413618603513323093
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1833118622}
-    m_Modifications:
-    - target: {fileID: 3652567742115992831, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_Name
-      value: PlantaJardin
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 91.1888
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -45.5944
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 77fb1f176d9f74e45b3a70f6510d77d3, type: 3}
---- !u!224 &8413618603513323094 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5354286574910808790, guid: 77fb1f176d9f74e45b3a70f6510d77d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 8413618603513323093}
   m_PrefabAsset: {fileID: 0}

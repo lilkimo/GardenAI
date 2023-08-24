@@ -4,6 +4,7 @@ using System;
 using UnityEngine.Networking;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class LocationManager : MonoBehaviour
 {
@@ -54,6 +55,8 @@ public class LocationManager : MonoBehaviour
         if (!Input.location.isEnabledByUser) {
             // TODO Failure
             Debug.LogFormat("Android and Location not enabled");
+            locationData = new List<string>(){"Region Metropolitana", "Templada", "Vertisol"};
+            Debug.Log(String.Format("Los datos por defecto serán: {0}, {1}, {2}.", locationData[0], locationData[1], locationData[2]));
             yield break;
         }
 
@@ -72,6 +75,8 @@ public class LocationManager : MonoBehaviour
         if (maxWait < 1)
         {
             print("Timed out");
+            locationData = new List<string>(){"Region Metropolitana", "Templada", "Vertisol"};
+            Debug.Log(String.Format("Los datos por defecto serán: {0}, {1}, {2}.", locationData[0], locationData[1], locationData[2]));
             yield break;
         }
 
@@ -79,6 +84,8 @@ public class LocationManager : MonoBehaviour
         if (Input.location.status == LocationServiceStatus.Failed)
         {
             print("Unable to determine device location");
+            locationData = new List<string>(){"Region Metropolitana", "Templada", "Vertisol"};
+            Debug.Log(String.Format("Los datos por defecto serán: {0}, {1}, {2}.", locationData[0], locationData[1], locationData[2]));
             yield break;
         }
         else
@@ -100,7 +107,7 @@ public class LocationManager : MonoBehaviour
                 
                     string json = request.downloadHandler.text;
                     Response response = JsonUtility.FromJson<Response>(json);
-                    var data = response.results[0].address_components[5].long_name;
+                    string data = response.results[0].address_components[5].long_name;
                     userRegion = data;
                     LocationData = ParseLocation(userRegion);
             }
@@ -112,11 +119,11 @@ public class LocationManager : MonoBehaviour
     }
 
     public List<string> ParseLocation(string ubicacion){
-        List<string> locationData;
+        // List<string> locationData;
         // Ahora debería revisar una archivo con los datios de las distintas regionaes para poder obetner sus suelos y temperaturas.
         // Pero mientras tanto...
         if(ubicacion == "Región Metropolitana"){
-            locationData = new List<string>(){"Region Metropolitana", "Templaldo", "Vertisol"};
+            List<string> locationData = new List<string>(){"Region Metropolitana", "Templada", "Vertisol"};
             return locationData;
         }
         else return null;

@@ -31,6 +31,10 @@ public class OldParseXML : MonoBehaviour{
             XmlNode densidad = consumo.NextSibling;
             XmlNode mantencion = densidad.NextSibling;
             XmlNode resistencia = mantencion.NextSibling;
+            XmlNode origen = resistencia.NextSibling;
+            XmlNode temperatura = origen.NextSibling;
+            XmlNode suelo = temperatura.NextSibling;
+            XmlNode conflictos = suelo.NextSibling;
 
             List<string> datosPlanta = new List<string>(){
                 descripcion.InnerXml,
@@ -39,7 +43,12 @@ public class OldParseXML : MonoBehaviour{
                 consumo.InnerXml,
                 densidad.InnerXml,
                 mantencion.InnerXml,
-                resistencia.InnerXml};
+                resistencia.InnerXml,
+                origen.InnerXml,
+                temperatura.InnerXml,
+                suelo.InnerXml,
+                conflictos.InnerXml
+                };
 
             infoPlantas.Add(nombre.InnerXml, datosPlanta);
         }

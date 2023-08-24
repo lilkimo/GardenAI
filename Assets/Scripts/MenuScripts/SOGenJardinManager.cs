@@ -4,10 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using UnityEditor.MemoryProfiler;
+using Unity.VisualScripting;
 
-public class GenJardinManager : MonoBehaviour
+public class SOGenJardinManager : MonoBehaviour
 {
-    // Valores de la localización del usuario
+     // Valores de la localización del usuario
     [SerializeField] private LocationManager locationManager;
 
     // Criterios definidos por el usuario:
@@ -21,13 +25,25 @@ public class GenJardinManager : MonoBehaviour
     [SerializeField] private PlantaVetableConstructor plantaVetableConstructor;
 
     // Data de todas las plantas:
-    [SerializeField] private OldParseXML parseXml;
-
-    [SerializeField] private List<MockPlant> todasPlantas = new List<MockPlant>();
+    [SerializeField] private List<MockPlant> allPlants = new List<MockPlant>();
 
     // Constructor de tarjetas de plantas para jardín generado y el contenedor de estas:
     [SerializeField] private PlantaJardinConstructor plantaJardinConstructor;
     [SerializeField] private GameObject VistaPlantasJardin;
+
+    // Struct para almacenar las plantas escogidas para el jardín (panta, cantidad, conflictos presentes)
+    private class PlantaInfo
+    {
+        public MockPlant data;
+        public int cantidad;
+        public List<string> conflictos;
+
+        public PlantaInfo(MockPlant data, List<string> conflictos){
+            this.data = data;
+            this.cantidad = 1;
+            this.conflictos = conflictos;
+        }
+    }
 
     // void GenerarJardin():
     // La función recupera todos los criterios ingresados por el usuario y 
@@ -42,24 +58,25 @@ public class GenJardinManager : MonoBehaviour
         string flujo_v = GetSelectedToggle(flujo).GetComponentInChildren<Text>().text;
         List<string> blacklist_v = GetAllBlacklist(blacklist);
         
-        Dictionary<string, List<string>> plantasParaJardin = PickPlants(costo_v, consumo_v, densidad_v, mantencion_v, flujo_v, blacklist_v);
+        Dictionary<string, PlantaInfo> plantasParaJardin = PickPlants(costo_v, consumo_v, densidad_v, mantencion_v, flujo_v, blacklist_v);
 
         Debug.Log("PickPlants finalizado.");
 
         foreach (var plant in plantasParaJardin)
         {
-            Debug.Log(String.Format("Se creará la siguiente planta:\nNombre: {0}\nCantidad: {1}\nUbicación: {2}\nPrecio: {3}\nConsumo: {4}[ml/s]",plant.Key, plant.Value[0], plant.Value[1], plant.Value[2], plant.Value[3]));
+            Debug.Log(String.Format("Se creará la siguiente planta:\nNombre: {0}\nCantidad: {1}\nUbicación: {2}\nPrecio: {3}\nConsumo: {4}[ml/s]",plant.Key, plant.Value.cantidad, plant.Value.data.Placement, plant.Value.data.Price, plant.Value.data.Consumption));
             PlantaJardinConstructor constructor;
             constructor = Instantiate(plantaJardinConstructor, VistaPlantasJardin.transform);
             constructor.Nombre = plant.Key;
-            constructor.Cantidad = plant.Value[0];
-            constructor.Ubicacion = plant.Value[1];
-            constructor.Precio = plant.Value[2];
-            constructor.Consumo = plant.Value[3];
-            Debug.Log(String.Format("Los conflictos de {0} son: {1}",plant,plant.Value[4]));
-            if(plant.Value[4] != "" && plant.Value[4] != null) {
-                if(plant.Value[4][0] == ','){plant.Value[4] = plant.Value[4].Remove(0,2);}
-                constructor.Conflictos = "Tiene conflictos con: " + plant.Value[4].Remove(0,2);
+            constructor.Cantidad = plant.Value.cantidad.ToString();
+            constructor.Ubicacion = plant.Value.data.Placement;
+            constructor.Precio = plant.Value.data.Price.ToString();
+            constructor.Consumo = plant.Value.data.Consumption.ToString();
+
+            Debug.Log(String.Format("Los conflictos de {0} son: ",plant));
+            plant.Value.conflictos.ForEach(x => Debug.Log(x));
+            if(plant.Value.conflictos.Any()) {
+                constructor.Conflictos = "Tiene conflictos con: " + String.Join(", ",plant.Value.conflictos);
             }
             else constructor.Conflictos = "";
         }
@@ -89,79 +106,68 @@ public class GenJardinManager : MonoBehaviour
     // - Conflicto interespecie agrega una advertencia por ahora. Más adelante determianra un radio que las 
     //   plantas conflictivas no podrán sobreponer.
     // - Flora local aumenta el peso de la planta para la selección aleatoria.
-    public Dictionary<string, List<string>> PickPlants(float costoMax, float consumoMax, string densidad, bool mantencion, string flujo, List<string> banned){
+    private Dictionary<string, PlantaInfo> PickPlants(float costoMax, float consumoMax, string densidad, bool mantencion, string flujo, List<string> banned){
 
         Debug.Log("PickPlants en proceso...");
 
         float saldoCosto = costoMax;
         float saldoConsumo = consumoMax;
-        Dictionary<string, List<string>> plantasJardin = new Dictionary<string, List<string>>();
-        Dictionary<string, List<string>> allPlants = parseXml.infoPlantas;
-        
-        string planta = WeightedRandPlant(allPlants.Keys.ToList());
-        if (planta != null) Debug.Log("Se escogió una planta aleatoria: "+ planta);
 
-        while((saldoCosto - int.Parse(allPlants[planta][2]) >= 0) && (saldoConsumo - int.Parse(allPlants[planta][3]) >= 0) && TotalPlantas(plantasJardin) <= 10){
+        System.Random rand = new System.Random();
+        Dictionary<string, PlantaInfo> plantasJardin = new Dictionary<string, PlantaInfo>();
+
+        List<int> weightedPlants = Enumerable.Range(0, allPlants.Count).ToList();
+        int i = 0;
+        while(i < allPlants.Count){
+            if(allPlants[i].Origin == locationManager.LocationData[0]) weightedPlants.Add(i);
+            i++;
+        }
+
+        MockPlant planta = allPlants[weightedPlants[rand.Next(weightedPlants.Count)]];
+        if (planta != null) Debug.Log("Se escogió una planta aleatoria: "+ planta.Name);
+
+        while((saldoCosto - planta.Price >= 0) && (saldoConsumo - planta.Consumption >= 0) && plantasJardin.Sum(x => x.Value.cantidad) <= 10){
             Debug.Log("Se inicia el proceso de validación...");
 
-            if (IsDensityApropiate(allPlants[planta][4], densidad) // Si la densidad es adecuada [cambiar a futuro]
-            && !(allPlants[planta][5] == "Si" && mantencion) // Si la planta no requiere manetnción y se especificó una baja mantención
-            && IsFlowApropiate(allPlants[planta][6], flujo) // Si el flujo al que la planta está acostrumbrada es apropiado
-            && !banned.Contains(planta) // Si la planta no fue excluida manualmente
-            && allPlants[planta][8] == locationManager.LocationData[1] // Si a planta es adecuada a la temperatura de la ubicación del usuario
-            && allPlants[planta][9] == locationManager.LocationData[2] // Si la palnta es adecuada al tipo de suelo de la ubicación del usuario
+            if (IsDensityApropiate(planta.Density, densidad) // Si la densidad es adecuada [cambiar a futuro]
+            && !(planta.Maintenance == "Si" && mantencion) // Si la planta no requiere manetnción y se especificó una baja mantención
+            && IsFlowApropiate(planta.Resilience, flujo) // Si el flujo al que la planta está acostrumbrada es apropiado
+            && !banned.Contains(planta.Name) // Si la planta no fue excluida manualmente
+            && planta.Temperature == locationManager.LocationData[1] // Si a planta es adecuada a la temperatura de la ubicación del usuario
+            && planta.Soil == locationManager.LocationData[2] // Si la palnta es adecuada al tipo de suelo de la ubicación del usuario
             )
             {
-                Debug.Log("La planta "+planta+" cumple con los criterios.");
+                Debug.Log("La planta "+planta.Name+" cumple con los criterios.");
 
-                if (plantasJardin.ContainsKey(planta)){
-                    plantasJardin[planta][0] = (int.Parse(plantasJardin[planta][0]) + 1).ToString();
-                    Debug.Log("La planta "+planta+" ya se había escogido previamente. Ahora hay "+plantasJardin[planta][0]+".");
+
+                if (plantasJardin.ContainsKey(planta.Name)){
+                    plantasJardin[planta.Name].cantidad++;
+                    Debug.Log("La planta "+planta.Name+" ya se había escogido previamente. Ahora hay "+plantasJardin[planta.Name].cantidad+".");
                 }
                 else {
-                    Debug.Log("La planta "+planta+" no había sido escogida anteriormente. Agregando...");
+                    Debug.Log("La planta "+planta.Name+" no había sido escogida anteriormente. Agregando...");
 
-                    List<string> conflictsFound = CheckConflict(allPlants[planta][10].Split(',').ToList(), plantasJardin.Keys.ToList());
-
-                    plantasJardin.Add(planta, 
-                    new List<string>{
-                        "1",
-                        allPlants[planta][1],// Ubicacion
-                        allPlants[planta][2],// Precio
-                        allPlants[planta][3],// Consumo
-                        string.Join(", ", conflictsFound)// Plantas presentes con las que tiene conflicto
-                    });
+                    List<string> conflictsFound = CheckConflict(planta.Conflicts, plantasJardin.Keys.ToList());
+                    plantasJardin.Add(planta.Name, new PlantaInfo(planta, conflictsFound));
                     
                     foreach (string conflict in conflictsFound)
                     {
-                        plantasJardin[conflict][4] += ", "+planta;
+                        plantasJardin[conflict].conflictos.Add(planta.Name);
                     }
                 }
             }
             else Debug.Log($@"La planta {planta} no cumple con los criterios:
-            Densidad escogida: {densidad}. Densidad de la planta: {allPlants[planta][4]}
-            Mantención: {mantencion}. Mantención de la planta: {allPlants[planta][5]}
-            Flujo escogido: {flujo}. Flujo de la planta: {allPlants[planta][6]}
-            Temperatura del usuario: {locationManager.LocationData[1]}. Temperatura de la planta: {allPlants[planta][8]}
-            Tipo de suelo del usuario: {locationManager.LocationData[2]}. Tiopo de suelo de la planta: {allPlants[planta][9]}
+            Densidad escogida: {densidad}. Densidad de la planta: {planta.Density}
+            Mantención: {mantencion}. Mantención de la planta: {planta.Maintenance}
+            Flujo escogido: {flujo}. Flujo de la planta: {planta.Resilience}
+            Temperatura del usuario: {locationManager.LocationData[1]}. Temperatura de la planta: {planta.Temperature}
+            Tipo de suelo del usuario: {locationManager.LocationData[2]}. Tiopo de suelo de la planta: {planta.Soil}
             ");
 
-            planta = WeightedRandPlant(allPlants.Keys.ToList());
-            if (planta != null) Debug.Log("Se escogió otra planta aleatoria: "+ planta);
+            planta = allPlants[weightedPlants[rand.Next(weightedPlants.Count)]];
+            if (planta != null) Debug.Log("Se escogió una planta aleatoria: "+ planta.Name);
         }
         return plantasJardin;
-    }
-    string WeightedRandPlant(List<string> allPlants){
-        System.Random rand = new System.Random();
-        List<string> weightedPlants = new List<string>();
-
-        foreach (KeyValuePair<string, List<string>> p in parseXml.infoPlantas)
-        {
-            if(p.Value[7] == locationManager.LocationData[0]) weightedPlants.Add(p.Key);
-        }
-        weightedPlants.AddRange(allPlants);
-        string randWPlant = weightedPlants[rand.Next(weightedPlants.Count)];
-        return randWPlant;
     }
     // Corrobora que sea correcta la densidad.
     bool IsDensityApropiate(string plantaValue, string condition){
@@ -193,14 +199,23 @@ public class GenJardinManager : MonoBehaviour
         return conflictsFound;
     }
 
-
-    public void ListWLPlants(){
-        foreach (var planta in parseXml.infoPlantas)
+    private void Start() {
+        foreach (var planta in allPlants)
         {
             PlantaVetableConstructor cons;
             cons = Instantiate(plantaVetableConstructor, whitelist.transform);
-            cons.NombrePlanta = planta.Key;
-            cons.DescripcionPlanta = planta.Value[0];
+            cons.NombrePlanta = planta.Name;
+            cons.DescripcionPlanta = planta.Description;
+            // cons.ImagenPlanta = planta.Value[n];
+        }
+    }
+    public void ListWLPlants(){
+        foreach (var planta in allPlants)
+        {
+            PlantaVetableConstructor cons;
+            cons = Instantiate(plantaVetableConstructor, whitelist.transform);
+            cons.NombrePlanta = planta.Name;
+            cons.DescripcionPlanta = planta.Description;
             // cons.ImagenPlanta = planta.Value[n];
         }
     }
@@ -213,14 +228,5 @@ public class GenJardinManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-    }
-
-    int TotalPlantas(Dictionary<string, List<string>> dict){
-        int total = 0;
-        foreach (var par in dict)
-        {
-            total += int.Parse(par.Value[0]);
-        }
-        return total;
     }
 }

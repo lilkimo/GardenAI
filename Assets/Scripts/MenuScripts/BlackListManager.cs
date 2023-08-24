@@ -6,21 +6,25 @@ public class BlackListManager : MonoBehaviour
 {
     [SerializeField] private GameObject whiteList;
     [SerializeField] private GameObject blackList;
+    [SerializeField] private PlantaVetableConstructor constructor;
 
     public void BanPlant(){
         // Itero sobre cada planta en la whitelist
         foreach(Transform child in whiteList.transform)
         {
             if (child.GetComponent<Toggle>().isOn) {
+                string nombre = child.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+                string descripcion = child.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text;
 
-                Debug.Log("Planta baneada: "+ child);
+                Debug.Log("Planta baneada: "+nombre);
 
                 child.GetComponent<Toggle>().isOn = false;
-
-                GameObject baneado = Instantiate(child.gameObject, blackList.transform);
-                baneado.transform.SetParent(blackList.transform, false);
-                
                 child.gameObject.SetActive(false);
+
+                PlantaVetableConstructor cons;
+                cons = Instantiate(constructor, blackList.transform);
+                cons.NombrePlanta = nombre;
+                cons.DescripcionPlanta = descripcion;
             }
         }
 
